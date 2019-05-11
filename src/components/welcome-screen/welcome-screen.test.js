@@ -8,6 +8,8 @@ it(`WelcomeScreen run correctly`, () => {
       mistakes={0}
       time={0}
       onClick={jest.fn()}
+      errorCount={0}
+      gameTime={0}
     />)
     .toJSON();
 
