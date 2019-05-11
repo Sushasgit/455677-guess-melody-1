@@ -8,6 +8,8 @@ Enzyme.configure({adapter: new Adapter()});
 it(`should call the callback method on click`, () => {
   const clickHandler = jest.fn();
   const app = shallow(<WelcomeScreen
+    errorCount={0}
+    gameTime={0}
     onClick={clickHandler}
   />
   );
