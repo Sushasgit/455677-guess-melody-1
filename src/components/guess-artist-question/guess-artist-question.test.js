@@ -28,11 +28,19 @@ const mock = {
 };
 
 it(`ArtistQuestionScreen is rendered correctly`, () => {
+  const createNodeMock = (element) => {
+    if (element.type === `audio`) {
+      return {
+        source: ``
+      };
+    }
+    return null;
+  };
   const {question} = mock;
   const tree = renderer.create(<GuessArtistQuestion
     onAnswer={jest.fn()}
     question={question}
-  />).toJSON();
+  />, {createNodeMock}).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

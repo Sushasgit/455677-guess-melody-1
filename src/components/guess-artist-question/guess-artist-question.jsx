@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import AudioPlayer from '../audio-player/audio-player.jsx';
+
 const GuessArtistQuestion = ({question, onAnswer}) => {
   const {answers} = question;
   return (
     <section className="game__screen">
       <h2 className="game__title">Кто исполняет эту песню?</h2>
-      <div className="game__track">
-        <button className="track__button track__button--play" type="button" />
-        <audio />
-      </div>
+
+      <AudioPlayer source={question.song.src} />
 
       <form className="game__artist" onChange={onAnswer}>
         {answers.map((it, i) => <div className="artist" key={i}>
