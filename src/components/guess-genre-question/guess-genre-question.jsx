@@ -7,7 +7,7 @@ export class GuessGenreQuestion extends React.PureComponent {
     super(props);
 
     this.state = {
-      activePlayerIndex: false,
+      activePlayerIndex: null,
     };
   }
   render() {
@@ -28,7 +28,7 @@ export class GuessGenreQuestion extends React.PureComponent {
               playButtonClick={() => this.setState({
                 activePlayerIndex: this.state.activePlayerIndex === i ? null : i,
               })}
-              source={it.src} />
+              src={it.src} />
             <div className="game__answer">
               <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`} id={`answer-${i}`} />
               <label className="game__check" htmlFor={`answer-${i}`}>

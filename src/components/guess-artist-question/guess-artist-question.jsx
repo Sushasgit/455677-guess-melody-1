@@ -1,30 +1,45 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import AudioPlayer from '../audio-player/audio-player.jsx';
 
-const GuessArtistQuestion = ({question, onAnswer}) => {
-  const {answers} = question;
-  return (
-    <section className="game__screen">
-      <h2 className="game__title">Кто исполняет эту песню?</h2>
+class ArtistQuestionScreen extends PureComponent {
+  constructor(props) {
+    super(props);
 
-      <AudioPlayer source={question.song.src} />
+    this.state = {
+      isPlaying: false,
+    };
+  }
+  render() {
+    const {question, onAnswer} = this.props;
+    const {answers} = question;
+    const {isPlaying} = this.state;
+    return (
+      <section className="game__screen">
+        <h2 className="game__title">Кто исполняет эту песню?</h2>
 
-      <form className="game__artist" onChange={onAnswer}>
-        {answers.map((it, i) => <div className="artist" key={i}>
-          <input className="artist__input visually-hidden" type="radio" name="answer" value={`artist-${i}`} id={`artist-${i}`} />
-          <label className="artist__name" htmlFor={`artist-${i}`}>
-            <img className="artist__picture" src={it.picture} alt={it.artist} />
-            {it.artist}
-          </label>
-        </div>)}
-      </form>
-    </section>
-  );
-};
+        <AudioPlayer
+          isPlaying={isPlaying}
+          src={question.song.src}
+          playButtonClick={() => this.setState({isPlaying: !isPlaying})}
+        />
 
-GuessArtistQuestion.propTypes = {
+        <form className="game__artist" onChange={onAnswer}>
+          {answers.map((it, i) => <div className="artist" key={i}>
+            <input className="artist__input visually-hidden" type="radio" name="answer" value={`artist-${i}`} id={`artist-${i}`} />
+            <label className="artist__name" htmlFor={`artist-${i}`}>
+              <img className="artist__picture" src={it.picture} alt={it.artist} />
+              {it.artist}
+            </label>
+          </div>)}
+        </form>
+      </section>
+    );
+  }
+}
+
+ArtistQuestionScreen.propTypes = {
   onAnswer: PropTypes.func.isRequired,
   question: PropTypes.shape({
     answers: PropTypes.arrayOf(PropTypes.shape({
@@ -38,4 +53,4 @@ GuessArtistQuestion.propTypes = {
     type: PropTypes.oneOf([`genre`, `artist`]).isRequired,
   }).isRequired,
 };
-export default GuessArtistQuestion;
+export default ArtistQuestionScreen;

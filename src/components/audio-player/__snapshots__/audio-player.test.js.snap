@@ -1,20 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AudioPlayer correctly render 1`] = `
-<div
-  className="game__track"
->
+Array [
   <button
     className="track__button track__button--play"
     onClick={[Function]}
     type="button"
-  />
+  />,
   <div
     className="track__status"
   >
-    <audio
-      src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Uganda_flag_and_national_anthem_-_Oh_Uganda_Land_o.ogg"
-    />
-  </div>
-</div>
+    <audio />
+  </div>,
+]
 `;
