@@ -32,6 +32,14 @@ const mock = {
 };
 
 it(`App run correctly`, () => {
+  const createNodeMock = (element) => {
+    if (element.type === `audio`) {
+      return {
+        source: ``
+      };
+    }
+    return null;
+  };
   const {questions} = mock;
   const tree = renderer
     .create(<App
@@ -39,7 +47,7 @@ it(`App run correctly`, () => {
       gameTime={0}
       questions={questions}
       onClick={jest.fn()}
-    />)
+    />, {createNodeMock})
     .toJSON();
 
   expect(tree).toMatchSnapshot();
