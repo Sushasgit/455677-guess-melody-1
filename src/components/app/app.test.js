@@ -1,54 +1,58 @@
-
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from "./app.jsx";
+import {App} from './app.jsx';
 
-const mock = {
-  questions: [
-    {
-      type: `genre`,
-      genre: `rock`,
-      answers: [
-        {
-          src: `path`,
-          genre: `rock`,
-        },
-      ],
-    },
-    {
-      type: `artist`,
-      song: {
-        artist: `One`,
-        src: ``,
-      },
-      answers: [
-        {
-          picture: ``,
-          artist: `One`,
-        },
-      ],
-    }
-  ],
-};
+import game from '../../mocks/game.js';
 
-it(`App run correctly`, () => {
-  const createNodeMock = (element) => {
-    if (element.type === `audio`) {
-      return {
-        source: ``
-      };
+it(`App correctly renders first screen`, () => {
+  const {questions} = game;
+  const tree = renderer.create(<App
+    mistakes={0}
+    maxMistakes={Infinity}
+    gameTime={100}
+    questions={questions}
+    step={-1}
+    onUserAnswer={jest.fn()}
+    onWelcomeScreenClick={jest.fn()}
+  />).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`App correctly renders genre question screen`, () => {
+  const {questions} = game;
+  const tree = renderer.create(<App
+    mistakes={0}
+    maxMistakes={Infinity}
+    gameTime={100}
+    questions={questions}
+    step={1}
+    onUserAnswer={jest.fn()}
+    onWelcomeScreenClick={jest.fn()}
+  />, {
+    createNodeMock: () => {
+      return {};
     }
-    return null;
-  };
-  const {questions} = mock;
-  const tree = renderer
-    .create(<App
-      errorCount={0}
-      gameTime={0}
-      questions={questions}
-      onClick={jest.fn()}
-    />, {createNodeMock})
-    .toJSON();
+  }).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`App correctly renders artist question screen`, () => {
+  const {questions} = game;
+  const tree = renderer.create(<App
+    mistakes={0}
+    maxMistakes={Infinity}
+    gameTime={100}
+    questions={questions}
+    step={2}
+    onUserAnswer={jest.fn()}
+    onWelcomeScreenClick={jest.fn()}
+  />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
