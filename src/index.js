@@ -1,5 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+
+import {reducer} from './reducer.js';
 import App from "./components/app/app.jsx";
 import questions from "./mocks/questions";
 
@@ -10,12 +14,17 @@ const gameSettings = {
 
 const init = (gameQuestions) => {
   const {errorCount, gameTime} = gameSettings;
-
-  ReactDOM.render(<App
-    errorCount={errorCount}
-    gameTime={gameTime}
-    questions={gameQuestions}
-  />,
+  const store = createStore(
+      reducer,
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+  ReactDOM.render(<Provider store={store}>
+    <App
+      maxMistakes={errorCount}
+      gameTime={gameTime}
+      questions={gameQuestions}
+    />
+  </Provider>,
   document.querySelector(`.main`));
 };
 

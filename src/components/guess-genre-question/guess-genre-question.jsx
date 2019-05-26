@@ -6,10 +6,23 @@ export class GuessGenreQuestion extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    const {question} = this.props;
+    const {answers} = question;
+
     this.state = {
       activePlayerIndex: null,
+      userAnswer: new Array(answers.length).fill(false),
     };
+
+    this._hadleChangeAnswer = this._hadleChangeAnswer.bind(this);
   }
+
+  _hadleChangeAnswer(answerIndex) {
+    const userAnswer = [...this.state.userAnswer];
+    userAnswer[answerIndex] = !userAnswer[answerIndex];
+    this.setState({userAnswer});
+  }
+
   render() {
     const {question, onAnswer} = this.props;
     const {genre, answers} = question;
@@ -18,10 +31,13 @@ export class GuessGenreQuestion extends React.PureComponent {
     return (
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
-        <form className="game__tracks" onSubmit={(evt) => {
-          evt.preventDefault();
-          onAnswer();
-        }}>
+        <form
+          className="game__tracks"
+          onSubmit={(evt) => {
+            evt.preventDefault();
+            onAnswer(this.state.userAnswer);
+          }}
+        >
           {answers.map((it, i) => <div className="track" key={`answer-${i}`}>
             <AudioPlayer
               isPlaying={activePlayerIndex === i}
@@ -30,7 +46,16 @@ export class GuessGenreQuestion extends React.PureComponent {
               })}
               src={it.src} />
             <div className="game__answer">
-              <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`} id={`answer-${i}`} />
+              <input
+                className="game__input visually-hidden"
+                type="checkbox"
+                name="answer"
+                value={`answer-${i}`}
+                id={`answer-${i}`}
+                onChange={() => {
+                  this. _hadleChangeAnswer(i);
+                }}
+              />
               <label className="game__check" htmlFor={`answer-${i}`}>
                 Отметить
               </label>

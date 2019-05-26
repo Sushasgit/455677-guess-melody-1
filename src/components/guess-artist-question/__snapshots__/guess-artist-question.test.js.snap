@@ -9,19 +9,22 @@ exports[`ArtistQuestionScreen is rendered correctly 1`] = `
   >
     Кто исполняет эту песню?
   </h2>
-  <button
-    className="track__button track__button--play"
-    onClick={[Function]}
-    type="button"
-  />
   <div
-    className="track__status"
+    className="game__track"
   >
-    <audio />
+    <button
+      className="track__button track__button--play"
+      onClick={[Function]}
+      type="button"
+    />
+    <div
+      className="track__status"
+    >
+      <audio />
+    </div>
   </div>
   <form
     className="game__artist"
-    onChange={[MockFunction]}
   >
     <div
       className="artist"
@@ -30,6 +33,7 @@ exports[`ArtistQuestionScreen is rendered correctly 1`] = `
         className="artist__input visually-hidden"
         id="artist-0"
         name="answer"
+        onClick={[Function]}
         type="radio"
         value="artist-0"
       />
@@ -52,6 +56,7 @@ exports[`ArtistQuestionScreen is rendered correctly 1`] = `
         className="artist__input visually-hidden"
         id="artist-1"
         name="answer"
+        onClick={[Function]}
         type="radio"
         value="artist-1"
       />
@@ -74,6 +79,7 @@ exports[`ArtistQuestionScreen is rendered correctly 1`] = `
         className="artist__input visually-hidden"
         id="artist-2"
         name="answer"
+        onClick={[Function]}
         type="radio"
         value="artist-2"
       />

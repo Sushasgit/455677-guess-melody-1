@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WelcomeScreen run correctly 1`] = `
+<div
+  className="game__mistakes"
+/>
+`;
